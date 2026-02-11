@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Refactoring Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>AI Code Refactoring Assistant</h1>
+    <p>Select your language, paste your code or upload your file and click the refactor code button</p>
+
+    <label>Language:</label>
+    <select>
+        <option>Python</option>
+        <option>Java</option>
+        <option>C++</option>
+    </select>
+
+     <div class="row">
+        <div class="box">
+            <h2>Your Code</h2>
+
+            <label for="fileInput" class="file-label">Upload File</label>
+
+           <!-- Hidden file input -->
+           <input type="file" id="fileInput" accept=".js,.py,.java,.cpp,.txt" style="display:none;">
+
+           <br><br>
+
+            <textarea id="codeInput" rows="12" placeholder="Paste your code here..."></textarea>
+        </div>
+
+
+        <div class="button-box">
+            <button>Refactor Code</button>
+        </div>
+
+
+        <div class="box">
+            <h2>Refactored Code</h2>
+            <br><br><br>
+           <textarea rows="12" placeholder="Refactored code will appear here..."></textarea>
+        </div>
+    </div>
+
+
+    <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const codeInput = document.getElementById('codeInput');
+
+    // Trigger the hidden file input when button is clicked
+    uploadBtn.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Load file content into textarea
+    fileInput.addEventListener('change', function() {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            codeInput.value = e.target.result;
+        };
+        reader.readAsText(file);
+    });
+</script>
+
+    
+
+
+</body>
+</html>
