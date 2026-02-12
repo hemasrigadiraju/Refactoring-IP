@@ -14,16 +14,12 @@
         </header>
 
         <main>
-            <!-- API Key Section -->
+            <!-- Demo Mode Section -->
             <section class="api-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <label for="apiKey">Gemini API Key:</label>
-                    <label class="demo-toggle">
-                        <input type="checkbox" id="demoMode"> Demo Mode (No API calls)
-                    </label>
-                </div>
-                <input type="password" id="apiKey" placeholder="Enter your Gemini API Key" class="api-input">
-                <small>Get your free API key at <a href="https://aistudio.google.com" target="_blank">Google AI Studio</a></small>
+                <label class="demo-toggle">
+                    <input type="checkbox" id="demoMode"> Demo Mode (No API needed)
+                </label>
+                <small>To use real refactoring: Add your Gemini API key in <code>script.js</code> (GEMINI_API_KEY variable)</small>
             </section>
 
             <!-- Input Section -->
