@@ -1,3 +1,6 @@
+// ===== API CONFIGURATION =====
+const GEMINI_API_KEY = 'AIzaSyCibEkTzzJ_lF3XS6nc64Ch2NHFbbGLbkM';
+
 // DOM Elements
 const sourceCodeTextarea = document.getElementById('sourceCode');
 const refactorBtn = document.getElementById('refactorBtn');
@@ -5,7 +8,6 @@ const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
 const clearBtn = document.getElementById('clearBtn');
 const copyBtn = document.getElementById('copyBtn');
-const apiKeyInput = document.getElementById('apiKey');
 const demoModeCheckbox = document.getElementById('demoMode');
 
 const loadingSpinner = document.getElementById('loadingSpinner');
@@ -66,7 +68,6 @@ function hideError() {
 // Refactor code using Gemini API
 async function refactorCode() {
     const sourceCode = sourceCodeTextarea.value.trim();
-    const apiKey = apiKeyInput.value.trim();
     const isDemo = demoModeCheckbox.checked;
 
     // Validation
@@ -75,9 +76,10 @@ async function refactorCode() {
         return;
     }
 
-    if (!apiKey && !isDemo) {
-        showError('Please enter your Gemini API Key or enable Demo Mode.');
-        focusApiKeyInput();
+    if (!GEMINI_API_KEY.includes('YOUR_GEMINI_API_KEY') && !isDemo) {
+        // API key is configured, proceed
+    } else if (!isDemo) {
+        showError('Please configure your Gemini API key in the code or enable Demo Mode.');
         return;
     }
 
@@ -114,7 +116,7 @@ async function refactorCode() {
             refactoredCode = getMockRefactoring(sourceCode);
         } else {
             // Use actual API
-            refactoredCode = await callGeminiAPI(sourceCode, apiKey);
+            refactoredCode = await callGeminiAPI(sourceCode, GEMINI_API_KEY);
         }
         
         // Parse response (assumes format: "EXPLANATION:\n...\n\nREFACTORED_CODE:\n...")
@@ -328,17 +330,6 @@ function copyRefactoredCode() {
         showError('Failed to copy to clipboard');
     });
 }
-
-// Focus on API key input
-function focusApiKeyInput() {
-    apiKeyInput.focus();
-    apiKeyInput.style.borderColor = '#ef4444';
-}
-
-// Clear API key input border on input
-apiKeyInput.addEventListener('input', () => {
-    apiKeyInput.style.borderColor = '';
-});
 
 // Prevent form submission on Enter in textarea
 sourceCodeTextarea.addEventListener('keydown', (e) => {
