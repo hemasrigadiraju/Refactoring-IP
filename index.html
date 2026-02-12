@@ -1,74 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Code Refactoring Assistant</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Refactoring Tool</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1>AI Code Refactoring Assistant</h1>
-    <p>Select your language, paste your code or upload your file and click the refactor code button</p>
+    <div class="container">
+        <header>
+            <h1>🔧 AI Code Refactoring Tool</h1>
+            <p>Refactor your code with AI assistance</p>
+        </header>
 
-    <label>Language:</label>
-    <select>
-        <option>Python</option>
-        <option>Java</option>
-        <option>C++</option>
-    </select>
+        <main>
+            <!-- API Key Section -->
+            <section class="api-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <label for="apiKey">Gemini API Key:</label>
+                    <label class="demo-toggle">
+                        <input type="checkbox" id="demoMode"> Demo Mode (No API calls)
+                    </label>
+                </div>
+                <input type="password" id="apiKey" placeholder="Enter your Gemini API Key" class="api-input">
+                <small>Get your free API key at <a href="https://aistudio.google.com" target="_blank">Google AI Studio</a></small>
+            </section>
 
-     <div class="row">
-        <div class="box">
-            <h2>Your Code</h2>
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-controls">
+                    <h2>Input Code</h2>
+                    <div class="control-buttons">
+                        <button id="uploadBtn" class="btn btn-secondary">📁 Upload File</button>
+                        <input type="file" id="fileInput" accept=".js,.py,.java,.cpp,.ts,.jsx,.tsx,.css,.html" style="display: none;">
+                        <button id="clearBtn" class="btn btn-secondary">Clear</button>
+                    </div>
+                </div>
+                <textarea id="sourceCode" placeholder="Paste your source code here or upload a file..." spellcheck="false"></textarea>
+            </section>
 
-            <label for="fileInput" class="file-label">Upload File</label>
+            <!-- Refactor Button -->
+            <div class="button-container">
+                <button id="refactorBtn" class="btn btn-primary">Refactor Code</button>
+            </div>
 
-           <!-- Hidden file input -->
-           <input type="file" id="fileInput" accept=".js,.py,.java,.cpp,.txt" style="display:none;">
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                
+                <!-- Explanation -->
+                <div class="explanation-box">
+                    <h3>📝 Refactoring Explanation</h3>
+                    <div id="explanation" class="explanation-content"></div>
+                </div>
 
-           <br><br>
+                <!-- Diff View -->
+                <div class="diff-container">
+                    <div class="diff-column">
+                        <h3>Original Code</h3>
+                        <pre id="originalCode" class="code-display"></pre>
+                    </div>
+                    <div class="diff-column">
+                        <h3>Refactored Code</h3>
+                        <pre id="refactoredCode" class="code-display"></pre>
+                    </div>
+                </div>
 
-            <textarea id="codeInput" rows="12" placeholder="Paste your code here..."></textarea>
-        </div>
+                <!-- Copy Button -->
+                <div class="button-container">
+                    <button id="copyBtn" class="btn btn-secondary">📋 Copy Refactored Code</button>
+                </div>
+            </section>
 
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing your code...</p>
+            </div>
 
-        <div class="button-box">
-            <button>Refactor Code</button>
-        </div>
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </main>
 
-
-        <div class="box">
-            <h2>Refactored Code</h2>
-            <br><br><br>
-           <textarea rows="12" placeholder="Refactored code will appear here..."></textarea>
-        </div>
     </div>
 
-
-    <script>
-    const fileInput = document.getElementById('fileInput');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const codeInput = document.getElementById('codeInput');
-
-    // Trigger the hidden file input when button is clicked
-    uploadBtn.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    // Load file content into textarea
-    fileInput.addEventListener('change', function() {
-        const file = fileInput.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            codeInput.value = e.target.result;
-        };
-        reader.readAsText(file);
-    });
-</script>
-
-    
-
-
+    <script src="script.js"></script>
 </body>
 </html>
